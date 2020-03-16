@@ -3,8 +3,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Home 02</title>
-	<meta charset="UTF-8">
+
+
+    {% block headblock %}
+    {% endblock %}
+
+    <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="{% static 'front/images/icons/favicon.png' %}"/>
@@ -61,11 +65,11 @@
 						<div class="left-topbar">
 
 
-							<a href="#" class="left-topbar-item">
+							<a href="/about" class="left-topbar-item">
 								About
 							</a>
 
-							<a href="#" class="left-topbar-item">
+							<a href="/contact" class="left-topbar-item">
 								Contact
 							</a>
 
@@ -111,7 +115,7 @@
 			<div class="wrap-logo no-banner container">
 				<!-- Logo desktop -->
 				<div class="logo">
-					<a href="index.html"><img src="{% static 'front/images/icons/logo-01.png' %}" alt="LOGO"></a>
+					<a href="/"><img src="{% static 'front/images/icons/logo-01.png' %}" alt="LOGO"></a>
 				</div>
 			</div>
 
@@ -2168,7 +2172,7 @@
 
 						<div>
 							<p class="f1-s-1 cl11 p-b-16">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tempor magna eget elit efficitur, at accumsan sem placerat. Nulla tellus libero, mattis nec molestie at, facilisis ut turpis. Vestibulum dolor metus, tincidunt eget odio
+								{{ site.about }}
 							</p>
 
 							<p class="f1-s-1 cl11 p-b-16">

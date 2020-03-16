@@ -4,11 +4,13 @@ from .models import Main
 
 def home(request):
 
-    return render(request, 'front/home.html')
+    site = Main.objects.get(pk=2)
+    return render(request, 'front/home.html', {'site': site})
 
 
 def about(request):
 
-    return render(request, 'front/about.html')
+    site = Main.objects.get(pk=2)
+    return render(request, 'front/about.html', {'site': site})
 
 
