@@ -28,17 +28,35 @@ def news_add(request):
         newstxt = request.POST.get('newstxt')
 
         if newstitle == "" or newstxtshort == "" or newstxt == "":
-            print("sdaasd")
             error = "All fields required"
             render(request, 'back/error.html', {'error': error})
 
-        myfile = request.FILES['myfile']
-        fs = FileSystemStorage()
-        filename = fs.save(myfile.name, myfile)
-        url = fs.url(filename)
+        try:
+            myfile = request.FILES['myfile']
+            fs = FileSystemStorage()
+            filename = fs.save(myfile.name, myfile)
+            url = fs.url(filename)
 
-        b = News(name=newstitle, date="2019", picname=filename ,picurl=url, writer="-", catname=newscat, short_txt=newstxtshort, body_txt=newstxt, catid=0, show=0)
-        b.save()
-        return redirect('news_list')
+            if str(myfile.content_type).startswith("image"):
+
+                if myfile.size < 5000000:
+
+                    b = News(name=newstitle, date="2019", picname=filename, picurl=url, writer="-", catname=newscat, short_txt=newstxtshort, body_txt=newstxt, catid=0, show=0)
+                    b.save()
+                    return redirect('news_list')
+
+                else:
+
+                    error = "your file bigger than 5MB"
+                    render(request, 'back/error.html', {'error': error})
+
+            else:
+
+                error = "your file not supported"
+                render(request, 'back/error.html', {'error': error})
+
+        except:
+            error = "please input the image"
+            render(request, 'back/error.html', {'error': error})
 
     return render(request, 'back/news_add.html')
