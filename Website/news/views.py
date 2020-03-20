@@ -56,7 +56,7 @@ def news_add(request):
                 if myfile.size < 5000000:
 
                     b = News(name=newstitle, date=today, picname=filename, picurl=url, writer="-", catname=newscat, short_txt=newstxtshort, body_txt=newstxt, catid=0, show=0, time= time)
-                     b.save()
+                    b.save()
                     return redirect('news_list')
 
                 else:
@@ -65,12 +65,29 @@ def news_add(request):
                     render(request, 'back/error.html', {'error': error})
 
             else:
-
+                fs = FileSystemStorage()
+                fs.delete(filename)
                 error = "your file not supported"
                 render(request, 'back/error.html', {'error': error})
 
         except:
+
             error = "please input the image"
             render(request, 'back/error.html', {'error': error})
 
     return render(request, 'back/news_add.html')
+
+
+def news_delete(request, pk):
+
+    try:
+        b = News.objects.get(pk=pk)
+        fs = FileSystemStorage()
+        fs.delete(b.picname)
+        b.delete()
+
+    except:
+        error = "Something Wrong"
+        return render(request, 'back/error.html', {'error': error})
+
+    return redirect('news_list')
