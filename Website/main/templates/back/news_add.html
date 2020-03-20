@@ -38,7 +38,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="{% url 'news_add' %}" method="post">
+              <form role="form" action="{% url 'news_add' %}" method="post" enctype="multipart/form-data">
               {% csrf_token %}
                 <div class="card-body">
                   <div class="row">
@@ -60,26 +60,13 @@
                     </div>
                   </div>
                   <div class="form-group">
-                      <textarea type="password" id="newstxtshort" name="newstxtshort" rows="5" class="form-control" placeholder="Short Text"></textarea>
+                      <textarea type="text" id="newstxtshort" name="newstxtshort" rows="5" class="form-control" placeholder="Short Text"></textarea>
                   </div>
                   <div class="form-group">
-                      <textarea type="password" rows="5" class="form-control" id="newstxt" name="newstxt" placeholder="Body Text"></textarea>
+                      <textarea type="text" rows="5" class="form-control" id="newstxt" name="newstxt" placeholder="Body Text"></textarea>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputFile">Image</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="myfile" name="myfile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                      <div class="input-group-append">
-                        <span class="input-group-text" id="">Upload</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                      <input type="file" class="form-control" id="myfile" name="myfile" placeholder="Body Text">
                   </div>
                 </div>
                 <!-- /.card-body -->

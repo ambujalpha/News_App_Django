@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import News
 from main.models import Main
+from django.core.files.storage import FileSystemStorage
 
 
 def news_detail(request, word):
@@ -31,7 +32,12 @@ def news_add(request):
             error = "All fields required"
             render(request, 'back/error.html', {'error': error})
 
-        b = News(name=newstitle, date="2019", pic="-",writer="-", catname=newscat, short_txt=newstxtshort, body_txt=newstxt, catid=0, show=0)
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        url = fs.url(filename)
+
+        b = News(name=newstitle, date="2019", picname=filename ,picurl=url, writer="-", catname=newscat, short_txt=newstxtshort, body_txt=newstxt, catid=0, show=0)
         b.save()
         return redirect('news_list')
 
