@@ -3,6 +3,7 @@ from .models import News
 from main.models import Main
 from django.core.files.storage import FileSystemStorage
 import datetime
+from subcat.models import SubCat
 
 
 def news_detail(request, word):
@@ -35,47 +36,51 @@ def news_add(request):
     today = str(year) + "/" + str(month) + "/" + str(day)
     time = str(now.hour) + "/" + str(now.minute)
 
+    cat = SubCat.objects.all()
+
     if request.method == 'POST':
         newstitle = request.POST.get('newstitle')
         newscat = request.POST.get('newscat')
         newstxtshort = request.POST.get('newstxtshort')
         newstxt = request.POST.get('newstxt')
+        newsid = request.POST.get('newscat')
 
-        if newstitle == "" or newstxtshort == "" or newstxt == "":
-            error = "All fields required"
-            render(request, 'back/error.html', {'error': error})
+    try:
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        url = fs.url(filename)
 
-        try:
-            myfile = request.FILES['myfile']
-            fs = FileSystemStorage()
-            filename = fs.save(myfile.name, myfile)
-            url = fs.url(filename)
+        if str(myfile.content_type).startswith("image"):
 
-            if str(myfile.content_type).startswith("image"):
+            if myfile.size < 5000000:
 
-                if myfile.size < 5000000:
+                newsname = SubCat.objects.get(pk=newsid).name
 
-                    b = News(name=newstitle, date=today, picname=filename, picurl=url, writer="-", catname=newscat, short_txt=newstxtshort, body_txt=newstxt, catid=0, show=0, time= time)
-                    b.save()
-                    return redirect('news_list')
-
-                else:
-
-                    error = "your file bigger than 5MB"
-                    render(request, 'back/error.html', {'error': error})
+                b = News(name=newstitle, date=today, picname=filename, picurl=url, writer="-", catname=newsname,short_txt=newstxtshort, body_txt=newstxt, catid=newsid, show=0, time=time)
+                b.save()
+                return redirect('news_list')
 
             else:
-                fs = FileSystemStorage()
-                fs.delete(filename)
-                error = "your file not supported"
+
+                error = "your file bigger than 5MB"
+                print(error)
                 render(request, 'back/error.html', {'error': error})
 
-        except:
-
-            error = "please input the image"
+        else:
+            fs = FileSystemStorage()
+            fs.delete(filename)
+            error = "your file not supported"
+            print(error)
             render(request, 'back/error.html', {'error': error})
 
-    return render(request, 'back/news_add.html')
+    except:
+
+        error = "please input the image"
+        print(error)
+        render(request, 'back/error.html', {'error': error})
+
+    return render(request, 'back/news_add.html', {'cat': cat})
 
 
 def news_delete(request, pk):

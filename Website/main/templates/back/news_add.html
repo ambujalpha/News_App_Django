@@ -52,9 +52,9 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <select id="newscat"  name="newscat" class="select-chosen" data-placeholder="Choose a category..." style=" width: 250px; ">
-                                <option value="cat1">Cat 1</option>
-                                <option value="cat2">Cat 2</option>
-                                <option value="at3">Cat 3</option>
+                                {% for i in cat %}
+                                <option value="{{ i.pk }}">{{ i.catname }} | {{ i.name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
