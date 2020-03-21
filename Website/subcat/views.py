@@ -1,14 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Cat
+from .models import SubCat
 
 
-def cat_list(request):
+def subcat_list(request):
 
-    cat = Cat.objects.all()
-    return render(request, 'back/cat_list.html', {'cat': cat})
+    subcat = SubCat.objects.all()
+    return render(request, 'back/subcat_list.html', {'subcat': subcat})
 
 
-def cat_add(request):
+def subcat_add(request):
 
     if request.method == 'POST':
 
@@ -19,13 +19,9 @@ def cat_add(request):
             error = "All fields required"
             return render(request, 'back/error.html', {'error': error})
 
-        if len(Cat.objects.filter(name=name)) != 0 :
+        if len(SubCat.objects.filter(name=name)) != 0 :
 
             error = "This name is used"
             return render(request, 'back/error.html', {'error': error})
 
-        b = Cat(name=name)
-        b.save()
-        return redirect('cat_list')
-
-    return render(request, 'back/cat_add.html')
+    return render(request, 'back/subcat_add.html')
