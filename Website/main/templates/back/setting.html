@@ -1,0 +1,138 @@
+{% extends 'back/master.html' %}
+{% load static %}
+
+{% block headblock %}
+
+    <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+
+{% endblock %}
+
+{% block mainblock %}
+
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper"  >
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Settings Page</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/panel/">Home</a></li>
+              <li class="breadcrumb-item active">Form</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Add News</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" action="{% url 'site_setting' %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+                <div class="card-body">
+                  <div class="row">
+                  <div class="col-md-5">
+                  <div class="form-group">
+                    <input class="form-control" id="name" name="name" value="{{site.name}}" placeholder="Site Title">
+                  </div>
+                  </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+
+                    <input class="form-control" id="tell" name="tell" value="{{site.tell}}" placeholder="Site Tell">
+
+
+                        </div>
+                    </div>
+                  </div>
+
+                     <div class="row">
+                  <div class="col-md-5">
+                  <div class="form-group">
+                    <input class="form-control" id="fb" name="fb" value="{{site.fb}}" placeholder="FB">
+                  </div>
+                  </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+
+                    <input class="form-control" id="tw" name="tw" value="{{site.tw}}" placeholder="TW">
+                        </div>
+                    </div>
+                  </div>
+
+                     <div class="row">
+                  <div class="col-md-5">
+                  <div class="form-group">
+                    <input class="form-control" id="yt" name="yt" value="{{site.yt}}" placeholder="YT">
+                  </div>
+                  </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+
+                    <input class="form-control" id="link" name="link" value="{{site.link}}" placeholder="link">
+
+
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                      <textarea type="text" id="txt" name="txt" rows="5" class="form-control" placeholder="Short Text">{{ site.about }}</textarea>
+                  </div>
+                  <div class="form-group">
+                      <input type="file" class="form-control" id="myfile" name="myfile" placeholder="Body Text">
+                  </div>
+                 <div>
+                      <img style="display: inline-block; width:150px; height:100px;" src="{{ site.picurl }}">
+                  </div>
+
+                  <div class="form-group">
+                      <input type="file" class="form-control" id="myfile2" name="myfile2" placeholder="Body Text">
+                  </div>
+                 <div>
+                      <img style="display: inline-block; width:150px; height:100px;" src="{{ site.picurl2 }}">
+                  </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+          </div>
+          <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+
+{% endblock %}
+

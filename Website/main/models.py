@@ -14,6 +14,12 @@ class Main(models.Model):
 
     set_name = models.CharField(default="-", max_length=30)
 
+    picurl = models.TextField(default="")
+    picname = models.TextField(default="")
+
+    picurl2 = models.TextField(default="")
+    picname2 = models.TextField(default="")
+
     def __str__(self):
         return self.set_name + " | " + str(self.pk)
 
