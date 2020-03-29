@@ -23,7 +23,13 @@ def home(request):
 def about(request):
 
     site = Main.objects.get(pk=2)
-    return render(request, 'front/about.html', {'site': site})
+    news = News.objects.all().order_by('-pk')
+    cat = Cat.objects.all()
+    subcat = SubCat.objects.all()
+    lastnews = News.objects.all().order_by('-pk')[:3]
+    popnews2 = News.objects.all().order_by('-show')[:3]
+
+    return render(request, 'front/about.html', {'site': site, 'news': news, 'cat': cat, 'subcat': subcat, 'lastnews': lastnews, 'popnews2': popnews2})
 
 
 def panel(request):
