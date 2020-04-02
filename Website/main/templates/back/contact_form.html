@@ -1,0 +1,86 @@
+{% extends 'back/master.html' %}
+{% load static %}
+
+
+{% block mainblock %}
+
+
+    <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Message list</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- /.row -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Responsive Hover Table</h3>
+
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th class="text-center">ID</th>
+
+                      <th>Name</th>
+                      <th>Date & Time</th>
+                      <th>Email</th>
+                      <th>Message</th>
+                      <th class="text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for cc in msg %}
+                    <tr>
+                      <td class="text-center">{{ cc.pk }}</td>
+                      <td>{{ cc.name }}</td>
+                      <td>{{ cc.date }} | {{ cc.time }}</td>
+                      <td>{{ cc.email }}</td>
+                      <td>{{ cc.txt }}</td>
+                      <td class="text-center">
+                          <div class="btn-group">
+                              <a href="#" data-toggle="tooltip" title="Answer" class="btn btn-xs btn-default"><i>Answer</i></a>
+                              <a href="{% url 'contact_del' pk=cc.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times">Delete</i></a>
+                          </div>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+
+{% endblock %}
+
