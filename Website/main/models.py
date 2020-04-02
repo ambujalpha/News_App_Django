@@ -6,6 +6,7 @@ class Main(models.Model):
 
     name = models.CharField(max_length=30)
     about = models.TextField()
+    abouttxt = models.TextField(default="")
     fb = models.CharField(default="-", max_length=30)
     tw = models.CharField(default="-", max_length=30)
     yt = models.CharField(default="-", max_length=30)

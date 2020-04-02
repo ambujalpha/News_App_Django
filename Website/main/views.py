@@ -146,3 +146,24 @@ def site_setting(request):
 
     return render(request, 'back/setting.html', {'site': site})
 
+
+def about_setting(request):
+
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+
+    if request.method == 'POST':
+
+        txt = request.POST.get('txt');
+
+        if txt == "":
+            error = "Something Wrong"
+            return render(request, 'back/error.html', {'error': error})
+
+        b = Main.objects.get(pk=2)
+        b.abouttxt = txt
+        b.save()
+
+    about = Main.objects.get(pk=2).abouttxt
+
+    return render(request, 'back/about_setting.html', {'about': about})
