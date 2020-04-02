@@ -167,3 +167,14 @@ def about_setting(request):
     about = Main.objects.get(pk=2).abouttxt
 
     return render(request, 'back/about_setting.html', {'about': about})
+
+
+def contact(request):
+    site = Main.objects.get(pk=2)
+    news = News.objects.all().order_by('-pk')
+    cat = Cat.objects.all()
+    subcat = SubCat.objects.all()
+    lastnews = News.objects.all().order_by('-pk')[:3]
+    popnews2 = News.objects.all().order_by('-show')[:3]
+
+    return render(request, 'front/contact.html',{'site': site, 'news': news, 'cat': cat, 'subcat': subcat, 'lastnews': lastnews, 'popnews2': popnews2})
