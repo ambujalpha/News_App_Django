@@ -4,11 +4,17 @@ from cat.models import Cat
 
 def subcat_list(request):
 
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+
     subcat = SubCat.objects.all()
     return render(request, 'back/subcat_list.html', {'subcat': subcat})
 
 
 def subcat_add(request):
+
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
 
     cat = Cat.objects.all()
 
