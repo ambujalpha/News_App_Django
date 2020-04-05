@@ -179,6 +179,7 @@ def about_setting(request):
 
 
 def contact(request):
+
     site = Main.objects.get(pk=2)
     news = News.objects.all().order_by('-pk')
     cat = Cat.objects.all()
@@ -188,3 +189,53 @@ def contact(request):
     trending = Trending.objects.all().order_by('-pk')[:5]
 
     return render(request, 'front/contact.html',{'site': site, 'news': news, 'cat': cat, 'subcat': subcat, 'lastnews': lastnews, 'popnews2': popnews2, 'trending': trending})
+
+
+def change_pass(request):
+
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+
+    if request.method == 'POST':
+
+        oldpass = request.POST.get('oldpass')
+        newpass = request.POST.get('newpass')
+
+        if oldpass == "" or newpass == "":
+            error = "All fields required"
+            return render(request, 'back/error.html', {'error': error})
+
+        user = authenticate(username=request.user, password=oldpass)
+        if user != None:
+
+            if len(newpass) < 8:
+                error = "less character"
+                return render(request, 'back/error.html', {'error': error})
+
+            count1 = 0
+            count2 = 0
+            count3 = 0
+            count4 = 0
+            for i in newpass:
+
+                if i > "0" and i < "9":
+                    count1 += 1
+                if i > "A" and i < "Z":
+                    count2 += 1
+                if i > "a" and i < "z":
+                    count3 += 1
+                if i > "!" and i < "(":
+                    count4 += 1
+
+            if count1 == 1 and count2 == 1 and count3 == 1 and count4 == 1:
+
+                user = User.objects.get(username=request.user)
+                user.set_password(newpass)
+                user.save()
+                return redirect('mylogout')
+
+        else:
+            error = "Wrong password"
+            return render(request, 'back/error.html', {'error': error})
+
+    return render(request, 'back/changepass.html')
