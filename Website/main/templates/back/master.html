@@ -82,7 +82,7 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Admin</a>
+          <a href="#" class="d-block">{{ request.user }}</a>
         </div>
       </div>
 
@@ -230,6 +230,17 @@
                 </a>
               </li>
             </li>
+
+            <li class="nav-header">Manager</li>
+            <li class="nav-item has-treeview">
+            <a href="/panel/manager/list/" class="nav-link">
+              <i class="nav-icon far fa-plus-square"></i>
+              <p>
+                Manager list
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+
             <li class="nav-header">News-Section</li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">

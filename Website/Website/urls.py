@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'', include('subcat.urls')),
     url(r'', include('contactform.urls')),
     url(r'', include('trending.urls')),
+    url(r'', include('manager.urls')),
 ]
