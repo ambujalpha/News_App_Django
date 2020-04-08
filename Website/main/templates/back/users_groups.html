@@ -26,17 +26,23 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Add Group</h3>
+                <h3 class="card-title">Add User</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="{% url 'manager_group_add' %}" method="post" enctype="multipart/form-data">
+              <form role="form" action="{% url 'add_users_to_groups' pk=pk %}" method="post" enctype="multipart/form-data">
               {% csrf_token %}
                 <div class="card-body">
                   <div class="row">
                   <div class="col-md-5">
                   <div class="form-group">
-                    <input class="form-control" id="name" name="name" placeholder="Group Name" required>
+
+                       <select id="gname"  name="gname" class="select-chosen" data-placeholder="Choose a Group..." style=" width: 250px; ">
+                            {% for i in group %}
+                            <option value="{{ i.name }}">{{ i.name }}</option>
+                            {% endfor %}
+                    </select>
+
                   </div>
                   </div>
                   </div>
@@ -85,13 +91,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                  {% for cc in group %}
+                  {% for cc in ugroup %}
                     <tr>
                       <td>{{ cc }}</td>
                       <td class="text-center">
                           <div class="btn-group">
-                              <a href="" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil">Edit</i></a>
-                              <a href="{% url 'manager_group_del' name=cc.name %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times">Delete</i></a>
+                              <a href="{% url 'del_users_to_groups' pk=pk name=cc %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times">Delete</i></a>
                           </div>
                       </td>
                     </tr>
