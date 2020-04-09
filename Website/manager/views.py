@@ -254,3 +254,80 @@ def manager_perms_add(request):
             return render(request, 'back/error.html', {'error': error})
 
     return redirect('manager_perms')
+
+
+def users_perms(request, pk):
+
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+
+    perm = 0
+    for i in request.user.groups.all():
+        if i.name == "masteruser": perm = 1
+
+    if perm == 0:
+        error = "Access Denied"
+        return render(request, 'back/error.html', {'error': error})
+
+    manager = Manager.objects.get(pk=pk)
+
+    user = User.objects.get(username=manager.utxt)
+
+    permission = Permission.objects.filter(user=user)
+
+    uperms = []
+    for i in permission:
+        uperms.append(i.name)
+
+    perms = Permission.objects.all()
+
+    return render(request, 'back/users_perms.html', {'uperms': uperms, 'pk': pk, 'perms': perms})
+
+
+def users_perms_del(request, pk, name):
+
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+
+    perm = 0
+    for i in request.user.groups.all():
+        if i.name == "masteruser": perm = 1
+
+    if perm == 0:
+        error = "Access Denied"
+        return render(request, 'back/error.html', {'error': error})
+
+    manager = Manager.objects.get(pk=pk)
+    user = User.objects.get(username=manager.utxt)
+
+    permission = Permission.objects.get(name=name)
+    user.user_permissions.remove(permission)
+
+    return redirect('users_perms', pk=pk)
+
+
+def users_perms_add(request, pk):
+
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+
+    perm = 0
+    for i in request.user.groups.all():
+        if i.name == "masteruser": perm = 1
+
+    if perm == 0:
+        error = "Access Denied"
+        return render(request, 'back/error.html', {'error': error})
+
+    if request.method == 'POST':
+
+        pname = request.POST.get('pname')
+
+        manager = Manager.objects.get(pk=pk)
+        user = User.objects.get(username=manager.utxt)
+
+        permission = Permission.objects.get(name=pname)
+        user.user_permissions.add(permission)
+
+    return redirect('users_perms', pk=pk)
+

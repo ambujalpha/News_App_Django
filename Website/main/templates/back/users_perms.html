@@ -18,6 +18,50 @@
       </div><!-- /.container-fluid -->
     </section>
 
+     <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Add User</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" action="{% url 'users_perms_add' pk=pk %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+                <div class="card-body">
+                  <div class="row">
+                  <div class="col-md-5">
+                  <div class="form-group">
+
+                       <select id="pname"  name="pname" class="select-chosen" data-placeholder="Choose a Group..." style=" width: 250px; ">
+                            {% for i in perms %}
+                            <option value="{{ i.name }}">{{ i.name }}</option>
+                            {% endfor %}
+                    </select>
+
+                  </div>
+                  </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+          </div>
+          <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+
     <!-- Main content -->
     <section class="content">
         <!-- /.row -->
@@ -42,25 +86,17 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th class="text-center">ID</th>
                       <th>Name</th>
-                      <th>Email</th>
-                      <th>Username</th>
-                      <th class="text-center">Actions</th>
+                      <th class="text-center">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {% for cc in manager %}
+                  {% for cc in uperms %}
                     <tr>
-                      <td class="text-center">{{ cc.pk }}</td>
-                      <td>{{ cc.name }}</td>
-                      <td>{{ cc.email }}</td>
-                      <td>{{ cc.utxt }}</td>
+                      <td>{{ cc }}</td>
                       <td class="text-center">
                           <div class="btn-group">
-                              <a href="{% url 'users_groups' pk=cc.pk %}" data-toggle="tooltip" title="Groups" class="btn btn-xs btn-default"><i class="fa fa-pencil">Groups</i></a>
-                              <a href="{% url 'manager_del' pk=cc.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times">Delete</i></a>
-                              <a href="{% url 'users_perms' pk=cc.pk %}" data-toggle="tooltip" title="Groups" class="btn btn-xs btn-default"><i class="fa fa-pencil">Perms</i></a>
+                              <a href="{% url 'users_perms_del' pk=pk name=cc %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times">Delete</i></a>
                           </div>
                       </td>
                     </tr>
