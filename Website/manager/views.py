@@ -9,6 +9,7 @@ from trending.models import Trending
 from django.contrib.auth.models import User, Group, Permission
 import random
 from random import randint
+from django.contrib.contenttypes.models import ContentType
 
 
 def manager_list(request):
@@ -185,3 +186,71 @@ def del_users_to_groups(request, pk, name):
     user.groups.remove(group)
 
     return redirect('users_groups', pk=pk)
+
+
+def manager_perms(request):
+
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+
+    perm = 0
+    for i in request.user.groups.all():
+        if i.name == "masteruser": perm =1
+
+    if perm == 0:
+        error = "Access Denied"
+        return render(request, 'back/error.html', {'error': error})
+
+    perms = Permission.objects.all()
+
+    return render(request, 'back/manager_perms.html', {'perms': perms})
+
+
+def manager_perms_del(request, name):
+
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+
+    perm = 0
+    for i in request.user.groups.all():
+        if i.name == "masteruser": perm =1
+
+    if perm == 0:
+        error = "Access Denied"
+        return render(request, 'back/error.html', {'error': error})
+
+    perms = Permission.objects.filter(name=name)
+    perms.delete()
+
+    return redirect('manager_perms')
+
+
+def manager_perms_add(request):
+
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+
+    perm = 0
+    for i in request.user.groups.all():
+        if i.name == "masteruser": perm =1
+
+    if perm == 0:
+        error = "Access Denied"
+        return render(request, 'back/error.html', {'error': error})
+
+    if request.method == 'POST':
+
+        name = request.POST.get('name')
+        cname = request.POST.get('cname')
+
+        if len(Permission.objects.filter(codename=cname)) == 0:
+
+            content_type = ContentType.objects.get(app_label='main', model='main')
+            permission = Permission.objects.create(codename=cname, name=name, content_type=content_type)
+
+        else:
+
+            error = "This codename used before"
+            return render(request, 'back/error.html', {'error': error})
+
+    return redirect('manager_perms')
