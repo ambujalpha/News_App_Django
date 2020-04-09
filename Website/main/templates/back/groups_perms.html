@@ -12,7 +12,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Simple Tables</h1>
+            <h1>Groups Perms</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -30,13 +30,17 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="{% url 'manager_group_add' %}" method="post" enctype="multipart/form-data">
+              <form role="form" action="{% url 'groups_perms_add' name=name %}" method="post" enctype="multipart/form-data">
               {% csrf_token %}
                 <div class="card-body">
                   <div class="row">
                   <div class="col-md-5">
                   <div class="form-group">
-                    <input class="form-control" id="name" name="name" placeholder="Group Name" required>
+                     <select id="pname"  name="pname" class="select-chosen" data-placeholder="Choose a Permission..." style=" width: 250px; ">
+                            {% for i in allperms %}
+                            <option value="{{ i.name }}">{{ i.name }}</option>
+                            {% endfor %}
+                    </select>
                   </div>
                   </div>
                   </div>
@@ -85,13 +89,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                  {% for cc in group %}
+                  {% for cc in perms %}
                     <tr>
                       <td>{{ cc.name }}</td>
                       <td class="text-center">
                           <div class="btn-group">
-                              <a href="{% url 'groups_perms' name=cc.name %}" data-toggle="tooltip" title="Perms" class="btn btn-xs btn-default"><i class="fa fa-pencil">Perms</i></a>
-                              <a href="{% url 'manager_group_del' name=cc.name %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times">Delete</i></a>
+                              <a href="{% url 'groups_perms_del' gname=name name=cc.name %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times">Delete</i></a>
                           </div>
                       </td>
                     </tr>

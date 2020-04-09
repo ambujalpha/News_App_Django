@@ -6,7 +6,7 @@ from subcat.models import SubCat
 from django.contrib.auth import authenticate, login, logout
 from django.core.files.storage import FileSystemStorage
 from trending.models import Trending
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group, Permission
 import random
 from random import randint
 from manager.models import Manager
@@ -46,6 +46,15 @@ def panel(request):
 
     if not request.user.is_authenticated:
         return redirect('mylogin')
+
+    perm = 0
+    perms = Permission.objects.filter(user=request.user)
+    for i in perms:
+        if i.codename == "master_user": perm =1
+
+    if perm == 0:
+        error = "Access Denied"
+        return render(request, 'back/error.html', {'error': error})
 
     return render(request, 'back/home.html')
 
