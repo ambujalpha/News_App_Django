@@ -15,12 +15,12 @@ from manager.models import Manager
 def home(request):
 
     site = Main.objects.get(pk=2)
-    news = News.objects.all().order_by('-pk')
+    news = News.objects.filter(act=1).order_by('-pk')
     cat = Cat.objects.all()
     subcat = SubCat.objects.all()
-    lastnews = News.objects.all().order_by('-pk')[:3]
-    popnews = News.objects.all().order_by('-show')
-    popnews2 = News.objects.all().order_by('-show')[:3]
+    lastnews = News.objects.filter(act=1).order_by('-pk')[:3]
+    popnews = News.objects.filter(act=1).order_by('-show')
+    popnews2 = News.objects.filter(act=1).order_by('-show')[:3]
     trending = Trending.objects.all().order_by('-pk')[:5]
 
     random_object = Trending.objects.all()[randint(0, len(trending) -1)]
@@ -51,10 +51,6 @@ def panel(request):
     perms = Permission.objects.filter(user=request.user)
     for i in perms:
         if i.codename == "master_user": perm =1
-
-    if perm == 0:
-        error = "Access Denied"
-        return render(request, 'back/error.html', {'error': error})
 
     return render(request, 'back/home.html')
 

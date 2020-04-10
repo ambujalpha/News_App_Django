@@ -17,6 +17,7 @@ class News(models.Model):
     ocatid = models.IntegerField(default=0)
     show = models.IntegerField(default=0)
     tag = models.TextField(default="")
+    act = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
