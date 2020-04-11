@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^panel/news/del/(?P<pk>\d+)/$', views.news_delete, name='news_delete'),
     url(r'^panel/news/edit/(?P<pk>\d+)/$', views.news_edit, name='news_edit'),
     url(r'^panel/news/publish/(?P<pk>\d+)/$', views.news_publish, name='news_publish'),
+    url(r'^urls/(?P<pk>\d+)/$', views.news_detail_short, name='news_detail_short'),
 ]

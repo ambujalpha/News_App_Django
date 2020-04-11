@@ -1,5 +1,6 @@
 {% extends 'back/master.html' %}
 {% load static %}
+{% load humanize %}
 
 
 {% block mainblock %}
@@ -76,6 +77,7 @@
         <!-- /.row -->
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
+    {{ rand | intcomma}}
     </section>
     <!-- /.content -->
   </div>

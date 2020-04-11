@@ -18,6 +18,7 @@ class News(models.Model):
     show = models.IntegerField(default=0)
     tag = models.TextField(default="")
     act = models.IntegerField(default=0)
+    rand = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
