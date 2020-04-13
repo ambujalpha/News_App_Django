@@ -85,7 +85,29 @@
 
 						</div>
                         <a href="{% url 'news_detail_short' pk=i.rand %}">/urls/{{ i.rand }}</a>
-                    </br></br>
+                    </br></br></br>
+
+                    {% if cmcount != 0 %}
+                    <div class="how2 how2-cl4 flex-s-c m-b-30">
+                        <h3 class="f1-m-2 cl3 tab01-title">
+                            Comments
+                        </h3>
+                    </div>
+                    {% endif %}
+
+                    {% for cm in comment %}
+                    <h4 class="f1-l-4 cl3 p-b-12">
+								{{ cm.name }} | {{ cm.date }} & {{ cm.time }}
+							</h4>
+
+							<p class="f1-s-13 cl8 p-b-40">
+							    {{ cm.cm }}
+                            </p>
+                            <hr/>
+                    {% endfor %}
+
+                    <br/><br/><br/>
+
 						<!-- Leave a comment -->
 						<div>
 							<h4 class="f1-l-4 cl3 p-b-12">
@@ -98,8 +120,9 @@
 
                             {% if user.is_authenticated %}
 
-							<form>
-								<textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20" name="msg" placeholder="Comment..."></textarea>
+							<form action="{% url 'news_cm_add' pk=code %}" method="POST">
+                            {% csrf_token %}
+								<textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20" name="msg" placeholder="Comment..." required></textarea>
 
 								<button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10">
 									Post Comment
@@ -108,12 +131,13 @@
 
                             {% else %}
 
-                                <form>
-								<textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20" name="msg" placeholder="Comment..."></textarea>
+                                <form action="{% url 'news_cm_add' pk=code %}" method="POST">
+                                {% csrf_token %}
+								<textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20" name="msg" placeholder="Comment..." required></textarea>
 
-								<input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text" name="name" placeholder="Name*">
+								<input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text" name="name" placeholder="Name*" required>
 
-								<input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text" name="email" placeholder="Email*">
+								<input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text" name="email" placeholder="Email*" required>
 
 								<button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10">
 									Post Comment

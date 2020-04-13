@@ -10,6 +10,7 @@ class Comment(models.Model):
     news_id = models.IntegerField()
     date = models.CharField(max_length=12)
     time = models.CharField(max_length=10)
+    status = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
