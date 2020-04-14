@@ -11,6 +11,8 @@ import random
 from random import randint
 from manager.models import Manager
 import string
+from ipware import get_client_ip
+from ip2geotools.databases.noncommercial import DbIpCity
 
 
 def home(request):
@@ -65,9 +67,7 @@ def panel(request):
     rand = News.objects.all()[randint(0,count-1)]
     '''
 
-    rand = 156454561
-
-    return render(request, 'back/home.html', {'rand': rand})
+    return render(request, 'back/home.html', {})
 
 
 def mylogin(request):
@@ -133,8 +133,20 @@ def myregister(request):
 
         if len(User.objects.filter(username=uname))==0 and len(User.objects.filter(email=email)) == 0 :
 
+            ip, is_routable = get_client_ip(request)
+
+            if ip is None:
+                ip = "0.0.0.0"
+
+            try:
+                response = DbIpCity.get(ip, api_key='free')
+                country = response.country + " | " + response.city
+
+            except:
+                country = "Unknown"
+
             user = User.objects.create_user(username=uname, email=email, password=password1)
-            b = Manager(name=name, utxt=uname, email=email)
+            b = Manager(name=name, utxt=uname, email=email, ip=ip, country=country)
             b.save()
 
     return render(request, 'front/login.html')
