@@ -19,6 +19,63 @@
     </section>
 
     <!-- Main content -->
+
+    <section class="content">
+        <!-- /.row -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Export Data</h3>
+                  <br/>
+                <a href="{% url 'export_cat_csv' %}" data-toggle="tooltip" title="export csv file" class="btn btn-xs btn-default"><i class="fa fa-pencil">CSV</i></a>
+
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <!-- /.row -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Import Data</h3>
+                  <br/>
+            <form role="form" action="{% url 'import_cat_csv' %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+                <input type="file" name="csv_file" id="csv_file"/>
+                  <br/><br/>
+                  <button type="submit">Submit</button>
+            </form>
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+    </section>
+
     <section class="content">
         <!-- /.row -->
         <div class="row">
@@ -68,10 +125,12 @@
             <!-- /.card -->
           </div>
         </div>
-      </div><!-- /.container-fluid -->
     </section>
+
+
+      </div><!-- /.container-fluid -->
+
     <!-- /.content -->
-  </div>
   <!-- /.content-wrapper -->
 
 
