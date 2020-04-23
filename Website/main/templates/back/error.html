@@ -1,6 +1,17 @@
 {% extends 'back/master.html' %}
 {% load static %}
 
+{% block headblock %}
+
+<script>
+
+function goback() {
+    window.history.back()
+}
+
+</script>
+
+{% endblock %}
 
 {% block mainblock %}
 
@@ -9,6 +20,8 @@
     <h1>
         <i class="fa fa-table"></i>Error<br><small>{{ error }}</small>
     </h1>
+    <br/>
+    <button onclick="goback()">Back</button>
 </div>
 </div>
 
