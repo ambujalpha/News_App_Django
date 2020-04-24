@@ -13,6 +13,9 @@ from manager.models import Manager
 import string
 from ipware import get_client_ip
 from ip2geotools.databases.noncommercial import DbIpCity
+from django.core.mail import send_mail
+from django.conf import settings
+from contactform.models import ContactForm
 
 
 def home(request):
@@ -340,3 +343,34 @@ def change_pass(request):
             return render(request, 'back/error.html', {'error': error})
 
     return render(request, 'back/changepass.html')
+
+
+def answer_cm(request, pk):
+
+    if request.method == 'POST':
+
+        txt = request.POST.get('txt')
+
+        if txt == "":
+            error = "Type Your Answer"
+            return render(request, 'back/error.html', {'error': error})
+
+        to_email = ContactForm.objects.get(pk=pk).email
+
+        '''
+        subject = 'answer_form'
+        message = txt
+        email_from = settings.EMAIL_HOST_USER
+        emails = [to_email]
+        send_mail(subject, message, email_from, emails)
+        '''
+
+        send_mail(
+            'sender number 2',
+            txt,
+            'sender@djangolearn.xyz',
+            [to_email],
+            fail_silently=False,
+        )
+
+    return render(request, 'back/answer_cm.html', {'pk':pk})

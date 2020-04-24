@@ -10,6 +10,8 @@ from django.contrib.auth.models import User, Group, Permission
 import random
 from random import randint
 from django.contrib.contenttypes.models import ContentType
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 def news_letter(request):
@@ -67,5 +69,24 @@ def news_txt_del(request, pk, num):
 
     if int(num) == 2:
         return redirect('news_phones')
+
+    return redirect('news_emails')
+
+
+def send_email(request):
+
+    if request.method == 'POST':
+
+            txt = request.POST.get('txt')
+
+            a = []
+            for i in Newsletter.objects.all():
+                a.append(Newsletter.objects.get(pk=i.pk).txt)
+
+            subject = 'Message'
+            message = txt
+            email_from = settings.EMAIL_HOST_USER
+            emails = a
+            send_mail(subject, message, email_from, emails)
 
     return redirect('news_emails')

@@ -61,7 +61,7 @@
                       <td>{{ cc.txt }}</td>
                       <td class="text-center">
                           <div class="btn-group">
-                              <a href="#" data-toggle="tooltip" title="Answer" class="btn btn-xs btn-default"><i>Answer</i></a>
+                              <a href="{% url 'answer_cm' pk=cc.pk %}" data-toggle="tooltip" title="Answer" class="btn btn-xs btn-default"><i>Answer</i></a>
                               <a href="{% url 'contact_del' pk=cc.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times">Delete</i></a>
                           </div>
                       </td>

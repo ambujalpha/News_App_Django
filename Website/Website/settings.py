@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6jtt=0i=l6h&0d&*t5+0to0n-g=m-g9%s@m-$4oyvjsdp5nq=g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -140,3 +140,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CRONJOBS = [
     ('*/10 * * * *', 'main.cron.my_job')
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'mail.djangoxyzlearn.xyz'
+EMAIL_HOST_USER = 'sender@djangoxyzlearn.xyz'
+EMAIL_HOST_PASSWORD = 'ABCDEFGHIJ'
+EMAIL_PORT = 587
