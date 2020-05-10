@@ -374,9 +374,9 @@ def all_news_search(request):
 
     if request.method == 'POST':
         txt = request.POST.get('txt')
-        print(txt)
 
-    allnews = News.objects.all()
+    allnews = News.objects.filter(name__contains=txt)
+    allnews2 = News.objects.filter(short_txt__contains=txt)
 
     site = Main.objects.get(pk=2)
     news = News.objects.filter(act=1).order_by('-pk')
@@ -388,4 +388,4 @@ def all_news_search(request):
     trending = Trending.objects.all().order_by('-pk')[:5]
     lastnews2 = News.objects.filter(act=1).order_by('-pk')[:4]
 
-    return render(request, 'front/all_news_2.html',{'site': site, 'news': news, 'cat': cat, 'subcat': subcat, 'lastnews': lastnews, 'popnews': popnews,'popnews2': popnews2, 'trending': trending, 'lastnews2': lastnews2,'allnews':allnews})
+    return render(request, 'front/all_news_2.html',{'site': site, 'news': news, 'cat': cat, 'subcat': subcat, 'lastnews': lastnews, 'popnews': popnews,'popnews2': popnews2, 'trending': trending, 'lastnews2': lastnews2,'allnews':allnews, 'allnews2':allnews2})
