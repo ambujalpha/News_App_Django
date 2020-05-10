@@ -4,6 +4,20 @@
 
 {% block headblock %}
 <title>{{ site.name }} | All</title>
+
+<script>
+    function Num(x) {
+            if (window.event) {var key = window.event.keyCode;}
+            else if (x) {key=x.which;}
+            else {return true;}
+            var keychar = String.fromCharCode(key);
+            keychar.toLowerCase();
+            if(key == (null || 0 || 8 || 13 || 27) || ("abcd").indexOf(keychar)>-1) {return true}
+            if(key == ("9").indexOf(keychar)>-1) {return true;}
+                else {return false}
+    }
+</script>
+
 {% endblock %}
 
 
@@ -16,7 +30,7 @@
                 <form action="{% url 'all_news_search' %}" method="POST">
                 {% csrf_token %}
                 <input class="bo-1-rad-3 bocl13 size-a-19 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="txt" name="txt" placeholder="Inpur your word">
-                <button type="submit" class="size-a-20 bg1 borad-2 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-20">
+                <button type="submit" class="size-a-20 bg1 borad-2 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-20" onkeypress="return Num(event);" >
                 Search
                 </button>
                 </form>
@@ -30,41 +44,7 @@
 
 			<div class="row p-t-35">
 
-                {% for i in allnews %}
-				<div class="col-sm-6 col-md-4">
-					<!-- Item latest -->
-					<div class="m-b-45">
-						<a href="{% url 'news_detail' word=i.name %}" class="wrap-pic-w hov1 trans-03">
-							<img style="display: inline-block; width:350px; height:240px;" src="{{ i.picurl }}" alt="IMG">
-						</a>
-
-						<div class="p-t-16">
-							<h5 class="p-b-5">
-								<a href="{% url 'news_detail' word=i.name %}" class="f1-m-3 cl2 hov-cl10 trans-03">
-									{{ i.name }}
-								</a>
-							</h5>
-
-							<span class="cl8">
-								<a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
-									{{i.writer}}
-								</a>
-
-								<span class="f1-s-3 m-rl-3">
-									-
-								</span>
-
-								<span class="f1-s-3">
-									{{ i.date }}
-								</span>
-							</span>
-						</div>
-					</div>
-				</div>
-                {% endfor %}
-
-
-                {% for i in allnews2 %}
+                {% for i in allnewss %}
 				<div class="col-sm-6 col-md-4">
 					<!-- Item latest -->
 					<div class="m-b-45">

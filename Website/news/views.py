@@ -9,6 +9,11 @@ from trending.models import Trending
 import random
 from comment.models import Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from itertools import chain
+
+
+
+mysearch = ""
 
 
 def news_detail(request, word):
@@ -374,9 +379,23 @@ def all_news_search(request):
 
     if request.method == 'POST':
         txt = request.POST.get('txt')
+        mysearch = txt
 
-    allnews = News.objects.filter(name__contains=txt)
-    allnews2 = News.objects.filter(short_txt__contains=txt)
+        a = News.objects.filter(name__contains=txt)
+        b = News.objects.filter(short_txt__contains=txt)
+        c = News.objects.filter(body_txt__contains=txt)
+
+        allnewss = list(chain(a,b,c))
+        allnewss = list(dict.fromkeys(allnewss))
+
+    else:
+
+        a = News.objects.filter(name__contains=mysearch)
+        b = News.objects.filter(short_txt__contains=mysearch)
+        c = News.objects.filter(body_txt__contains=mysearch)
+
+        allnewss = list(chain(a,b,c))
+        allnewss = list(dict.fromkeys(allnewss))
 
     site = Main.objects.get(pk=2)
     news = News.objects.filter(act=1).order_by('-pk')
@@ -388,4 +407,4 @@ def all_news_search(request):
     trending = Trending.objects.all().order_by('-pk')[:5]
     lastnews2 = News.objects.filter(act=1).order_by('-pk')[:4]
 
-    return render(request, 'front/all_news_2.html',{'site': site, 'news': news, 'cat': cat, 'subcat': subcat, 'lastnews': lastnews, 'popnews': popnews,'popnews2': popnews2, 'trending': trending, 'lastnews2': lastnews2,'allnews':allnews, 'allnews2':allnews2})
+    return render(request, 'front/all_news_2.html',{'site': site, 'news': news, 'cat': cat, 'subcat': subcat, 'lastnews': lastnews, 'popnews': popnews,'popnews2': popnews2, 'trending': trending, 'lastnews2': lastnews2,'allnewss':allnewss })
