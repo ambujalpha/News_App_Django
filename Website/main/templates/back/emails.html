@@ -58,7 +58,7 @@
     <section class="content">
         <!-- /.row -->
         <div class="row">
-          <div class="col-12">
+          <form class="col-12">
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Responsive Hover Table</h3>
@@ -74,10 +74,15 @@
                 </div>
               </div>
               <!-- /.card-header -->
+             <form role="form" action="{% url 'check_mychecklist' %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
               <div class="card-body table-responsive p-0">
+               <!-- form start -->
+
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
+                      <td>&nbsp</td>
                       <th class="text-center">ID</th>
 
                       <th>Email</th>
@@ -88,6 +93,8 @@
                   <tbody>
                   {% for cc in emails %}
                     <tr>
+                      <!--<td><input type="checkbox" name="{{ cc.pk }}" id="check"></td> -->
+                      <td><input type="checkbox" name="checks[]" value="{{ cc.pk }}"></td>
                       <td class="text-center">{{ cc.pk }}</td>
                       <td>{{ cc.txt }}</td>
 
@@ -100,7 +107,12 @@
                   {% endfor %}
                   </tbody>
                 </table>
+
               </div>
+              <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+          </form>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->

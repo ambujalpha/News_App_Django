@@ -90,3 +90,20 @@ def send_email(request):
             send_mail(subject, message, email_from, emails)
 
     return redirect('news_emails')
+
+def check_mychecklist(request):
+
+    if request.method == 'POST':
+
+        '''for i in Newsletter.objects.filter(status=1):
+            x = request.POST.get(str(i.pk))
+            if str(x) == 'on':
+                b = Newsletter.objects.get(pk=i.pk)
+                b.delete()'''
+
+        check = request.POST.getlist('checks[]')
+        for i in check:
+            b = Newsletter.objects.get(pk=i)
+            b.delete()
+
+    return redirect('news_emails')
