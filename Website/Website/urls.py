@@ -21,8 +21,17 @@ from django.conf.urls.static import static
 from django.views.static import serve
 from django.conf import settings
 
+from django.contrib.sitemaps.views import sitemap
+from main.sitemap import MyNewsSiteMap
+
+sitemaps={
+    'news': MyNewsSiteMap,
+}
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps':sitemaps}, name='django.contib.sitemaps.views.sitemap'),
 
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
