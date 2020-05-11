@@ -16,8 +16,12 @@ from ip2geotools.databases.noncommercial import DbIpCity
 from django.core.mail import send_mail
 from django.conf import settings
 from contactform.models import ContactForm
+from zeep import Client
+import requests
+import json
+from django.views.decorators.csrf import csrf_exempt
 
-
+@csrf_exempt
 def home(request):
 
     site = Main.objects.get(pk=2)
@@ -32,6 +36,31 @@ def home(request):
 
     random_object = Trending.objects.all()[randint(0, len(trending) -1)]
     print(random_object)
+
+    # Soup
+    '''
+    client = Client('xxxxxxxxxx.wsdl')
+    result = client.service.funcname(1,2,3)
+    print(result)
+    '''
+
+    #curl
+    '''
+    url = 'xxxxxxxxxxxxxxxx'
+    payload = {'a':"b", 'c':"d"}
+    result = requests.post(url, params=payload)
+    print(result.url)
+    print(result)
+    '''
+
+    #json
+    '''
+    url = 'xxxxxxxxxxxx'
+    data = {'a': "b", 'c': "d"}
+    headers = {'Content-Type':'application/json','API_KEY':'xxxxxxxxxxx'}
+    result = requests.post(url,data=json.dumps(data),headers=headers)
+    print(result)
+    '''
 
     return render(request, 'front/home.html', {'site': site, 'news': news, 'cat': cat, 'subcat': subcat, 'lastnews': lastnews, 'popnews': popnews, 'popnews2': popnews2, 'trending': trending, 'lastnews2': lastnews2})
 
