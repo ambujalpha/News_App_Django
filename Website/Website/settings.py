@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'blacklist',
     'django_crontab',
     'qr_code',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [

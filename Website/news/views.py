@@ -48,7 +48,7 @@ def news_detail(request, word):
 
     link = "/urls/" + str(News.objects.get(name=word).rand)
 
-    return render(request, 'front/news_detail.html',  {'site': site, 'news': news, 'cat': cat, 'subcat': subcat, 'lastnews': lastnews, 'shownews': shownews, 'popnews': popnews, 'popnews2': popnews2, 'tag': tag, 'trending': trending, 'code': code, 'comment':comment, 'cmcount':cmcount, 'link':link})
+    return render(request, 'front/news_detail.html',  {'site': site, 'news': news, 'cat': cat, 'subcat': subcat, 'lastnews': lastnews, 'shownews': shownews, 'popnews': popnews, 'popnews2': popnews2, 'tag': tag, 'trending': trending, 'code': code, 'comment':comment, 'cmcount':cmcount, 'link':link, 'tagname':tagname})
 
 
 def news_detail_short(request, pk):

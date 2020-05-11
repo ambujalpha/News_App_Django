@@ -13,6 +13,9 @@ class Main(models.Model):
     tell = models.CharField(default="-", max_length=30)
     link = models.CharField(default="-", max_length=30)
 
+    seo_txt = models.CharField(default="-", max_length=200)
+    seo_keywords = models.TextField(default="-")
+
     set_name = models.CharField(default="-", max_length=30)
 
     picurl = models.TextField(default="")

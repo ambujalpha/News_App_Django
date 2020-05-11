@@ -20,6 +20,8 @@ from zeep import Client
 import requests
 import json
 from django.views.decorators.csrf import csrf_exempt
+from bs4 import BeautifulSoup
+import urllib.request as urllib2
 
 @csrf_exempt
 def home(request):
@@ -60,6 +62,30 @@ def home(request):
     headers = {'Content-Type':'application/json','API_KEY':'xxxxxxxxxxx'}
     result = requests.post(url,data=json.dumps(data),headers=headers)
     print(result)
+    '''
+
+    my_html = """
+        
+    <title> This is a test </title>
+    <mytag>test</mytag>
+    
+    """
+    # soup = BeautifulSoup(my_html, 'html.parser')
+    # print(soup.title)
+
+    '''
+    url='https://djangolearn.xyz/'
+    result = request.post(url)
+    soup = BeautifulSoup(result.content, 'html.parser')
+    #print(soup.title.sring)
+    '''
+
+    '''
+    url = 'https://djangolearn.xyz/'
+    opener = urllib2.build_opener()
+    content = opener.open(url).read()
+    soup = BeautifulSoup(content)
+    print(soup.title.sring)
     '''
 
     return render(request, 'front/home.html', {'site': site, 'news': news, 'cat': cat, 'subcat': subcat, 'lastnews': lastnews, 'popnews': popnews, 'popnews2': popnews2, 'trending': trending, 'lastnews2': lastnews2})
@@ -214,6 +240,8 @@ def site_setting(request):
         yt = request.POST.get('yt')
         link = request.POST.get('link')
         txt = request.POST.get('txt')
+        seo_txt = request.POST.get('seotxt')
+        seo_keywords = request.POST.get('seokeyword')
 
         if fb == "":
             fb = "#"
@@ -264,6 +292,8 @@ def site_setting(request):
         b.yt = yt
         b.link = link
         b.about = txt
+        b.seo_txt = seo_txt
+        b.seo_keywords = seo_keywords
 
         if picurl != "-" :
             b.picurl = picurl

@@ -3,7 +3,15 @@
 
 
 {% block headblock %}
+
 <title>{{ site.name }} | Home</title>
+
+<meta charset="UTF-8">
+<meta name="description" content="{{ site.seo_txt }}">
+<meta name="keywords" content="{{site.seo_keywords}}">
+
+<meta name="og:{{ site.name }}" property="og:{{ site.name }}" content="{{ site.seo_txt }}">
+
 {% endblock %}
 
 
