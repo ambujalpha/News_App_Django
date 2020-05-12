@@ -22,6 +22,9 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from bs4 import BeautifulSoup
 import urllib.request as urllib2
+from rest_framework import viewsets
+from .serializer import NewsSerializer
+
 
 @csrf_exempt
 def home(request):
@@ -433,3 +436,9 @@ def answer_cm(request, pk):
         )
 
     return render(request, 'back/answer_cm.html', {'pk':pk})
+
+
+class NewsViewSet(viewsets.ModelViewSet):
+
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer

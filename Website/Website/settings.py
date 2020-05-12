@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django_crontab',
     'qr_code',
     'django.contrib.sitemaps',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
