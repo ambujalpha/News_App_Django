@@ -24,7 +24,8 @@ from bs4 import BeautifulSoup
 import urllib.request as urllib2
 from rest_framework import viewsets
 from .serializer import NewsSerializer
-
+from django.http import JsonResponse
+from newsletter.models import Newsletter
 
 @csrf_exempt
 def home(request):
@@ -90,6 +91,11 @@ def home(request):
     soup = BeautifulSoup(content)
     print(soup.title.sring)
     '''
+
+    url = 'http://127.0.0.1:8000/show/data/'
+    opener = urllib2.build_opener()
+    content = opener.open(url).read()
+    print(content)
 
     return render(request, 'front/home.html', {'site': site, 'news': news, 'cat': cat, 'subcat': subcat, 'lastnews': lastnews, 'popnews': popnews, 'popnews2': popnews2, 'trending': trending, 'lastnews2': lastnews2})
 
@@ -442,3 +448,12 @@ class NewsViewSet(viewsets.ModelViewSet):
 
     queryset = News.objects.all()
     serializer_class = NewsSerializer
+
+
+def show_data(request):
+
+    count = Newsletter.objects.filter(status=1).count()
+
+    data = {'Count':count}
+
+    return JsonResponse(data)
