@@ -92,10 +92,16 @@ def home(request):
     print(soup.title.sring)
     '''
 
+    '''
     url = 'http://127.0.0.1:8000/show/data/'
     opener = urllib2.build_opener()
     content = opener.open(url).read()
     print(content)
+    '''
+
+    request.session['test'] = "hello"
+
+    print(request.session['test'])
 
     return render(request, 'front/home.html', {'site': site, 'news': news, 'cat': cat, 'subcat': subcat, 'lastnews': lastnews, 'popnews': popnews, 'popnews2': popnews2, 'trending': trending, 'lastnews2': lastnews2})
 
