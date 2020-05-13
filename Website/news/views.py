@@ -10,9 +10,6 @@ import random
 from comment.models import Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from itertools import chain
-
-
-
 mysearch = ""
 
 
@@ -372,27 +369,157 @@ def all_news(request):
     trending = Trending.objects.all().order_by('-pk')[:5]
     lastnews2 = News.objects.filter(act=1).order_by('-pk')[:4]
 
-    return render(request, 'front/all_news_2.html',{'site': site, 'news': news, 'cat': cat, 'subcat': subcat, 'lastnews': lastnews, 'popnews': popnews,'popnews2': popnews2, 'trending': trending, 'lastnews2': lastnews2,'allnews':allnews})
+    now = datetime.datetime.now()
+    year = now.year
+    month = now.month
+    day = now.day
+
+    if len(str(day)) == 1:
+        day = "0" + str(day)
+    if len(str(month)) == 1:
+        month = "0" + str(month)
+
+    today = str(year) + "/" + str(month) + "/" + str(day)
+
+    f_rom = []
+    t_o = []
+
+    for i in range(30):
+
+        b = datetime.datetime.now() + datetime.timedelta(days=i)
+
+        year = b.year
+        month = b.month
+        day = b.day
+
+        if len(str(day)) == 1:
+            day = "0" + str(day)
+        if len(str(month)) == 1:
+            month = "0" + str(month)
+
+        b = str(year) + "/" + str(month) + "/" + str(day)
+
+        f_rom.append(b)
+
+
+    for i in range(30):
+
+        b = datetime.datetime.now() + datetime.timedelta(days=i)
+
+        year = b.year
+        month = b.month
+        day = b.day
+
+        if len(str(day)) == 1:
+            day = "0" + str(day)
+        if len(str(month)) == 1:
+            month = "0" + str(month)
+
+        b = str(year) + "/" + str(month) + "/" + str(day)
+
+        t_o.append(b)
+
+    return render(request, 'front/all_news_2.html',{'site': site, 'news': news, 'cat': cat, 'subcat': subcat, 'lastnews': lastnews, 'popnews': popnews,'popnews2': popnews2, 'trending': trending, 'lastnews2': lastnews2,'allnews':allnews, 'f_rom':f_rom, 't_o':t_o})
 
 
 def all_news_search(request):
 
+    allnews = News.objects.all()
     if request.method == 'POST':
         txt = request.POST.get('txt')
+        catid = request.POST.get('cat')
+        f_rom = request.POST.get('from')
+        t_o = request.POST.get('to')
         mysearch = txt
 
-        a = News.objects.filter(name__contains=txt)
-        b = News.objects.filter(short_txt__contains=txt)
-        c = News.objects.filter(body_txt__contains=txt)
+        if f_rom!="0" and t_o!="0":
+            if t_o < f_rom :
+                msg = "Enter proper dates"
+                render(request, 'front/msgbox.html', {'msg': msg})
+
+        if catid == "0":
+            if f_rom != "0" and t_o != "0":
+
+                a = News.objects.filter(name__contains=txt,date__gte=f_rom,date__lte=t_o)
+                b = News.objects.filter(short_txt__contains=txt,date__gte=f_rom,date__lte=t_o)
+                c = News.objects.filter(body_txt__contains=txt,date__gte=f_rom,date__lte=t_o)
+            elif f_rom != "0":
+
+                a = News.objects.filter(name__contains=txt,date__gte=f_rom)
+                b = News.objects.filter(short_txt__contains=txt,date__gte=f_rom)
+                c = News.objects.filter(body_txt__contains=txt,date__gte=f_rom)
+            elif t_o != "0":
+
+                a = News.objects.filter(name__contains=txt,date__lte=t_o)
+                b = News.objects.filter(short_txt__contains=txt,date__lte=t_o)
+                c = News.objects.filter(body_txt__contains=txt,date__lte=t_o)
+            else:
+                a = News.objects.filter(name__contains=txt)
+                b = News.objects.filter(short_txt__contains=txt)
+                c = News.objects.filter(body_txt__contains=txt)
+        else:
+            if f_rom != "0" and t_o != "0":
+                a = News.objects.filter(name__contains=txt, ocatid=catid,date__gte=f_rom,date__lte=t_o)
+                b = News.objects.filter(short_txt__contains=txt, ocatid=catid,date__gte=f_rom,date__lte=t_o)
+                c = News.objects.filter(body_txt__contains=txt, ocatid=catid,date__gte=f_rom,date__lte=t_o)
+            elif f_rom != "0":
+                a = News.objects.filter(name__contains=txt, ocatid=catid, date__gte=f_rom)
+                b = News.objects.filter(short_txt__contains=txt, ocatid=catid, date__gte=f_rom)
+                c = News.objects.filter(body_txt__contains=txt, ocatid=catid, date__gte=f_rom)
+            elif t_o != "0":
+                a = News.objects.filter(name__contains=txt, ocatid=catid,date__lte=t_o)
+                b = News.objects.filter(short_txt__contains=txt, ocatid=catid,date__lte=t_o)
+                c = News.objects.filter(body_txt__contains=txt, ocatid=catid,date__lte=t_o)
+            else:
+                a = News.objects.filter(name__contains=txt, ocatid=catid)
+                b = News.objects.filter(short_txt__contains=txt, ocatid=catid)
+                c = News.objects.filter(body_txt__contains=txt, ocatid=catid)
 
         allnewss = list(chain(a,b,c))
         allnewss = list(dict.fromkeys(allnewss))
 
     else:
 
-        a = News.objects.filter(name__contains=mysearch)
-        b = News.objects.filter(short_txt__contains=mysearch)
-        c = News.objects.filter(body_txt__contains=mysearch)
+        if catid=="0":
+
+            if f_rom != "0" and t_o != "0":
+                a = News.objects.filter(name__contains=mysearch,date__gte=f_rom,date__lte=t_o)
+                b = News.objects.filter(short_txt__contains=mysearch,date__gte=f_rom,date__lte=t_o)
+                c = News.objects.filter(body_txt__contains=mysearch,date__gte=f_rom,date__lte=t_o)
+            elif f_rom != "0":
+
+                a = News.objects.filter(name__contains=mysearch,date__gte=f_rom)
+                b = News.objects.filter(short_txt__contains=mysearch,date__gte=f_rom)
+                c = News.objects.filter(body_txt__contains=mysearch,date__gte=f_rom)
+            elif t_o != "0":
+
+                a = News.objects.filter(name__contains=mysearch,date__lte=t_o)
+                b = News.objects.filter(short_txt__contains=mysearch,date__lte=t_o)
+                c = News.objects.filter(body_txt__contains=mysearch,date__lte=t_o)
+            else:
+                a = News.objects.filter(name__contains=mysearch)
+                b = News.objects.filter(short_txt__contains=mysearch)
+                c = News.objects.filter(body_txt__contains=mysearch)
+
+
+        else:
+
+            if f_rom != "0" and t_o != "0":
+                a = News.objects.filter(name__contains=mysearch, ocatid=catid,date__gte=f_rom,date__lte=t_o)
+                b = News.objects.filter(short_txt__contains=mysearch, ocatid=catid,date__gte=f_rom,date__lte=t_o)
+                c = News.objects.filter(body_txt__contains=mysearch, ocatid=catid,date__gte=f_rom,date__lte=t_o)
+            elif f_rom != "0":
+                a = News.objects.filter(name__contains=mysearch, ocatid=catid, date__gte=f_rom)
+                b = News.objects.filter(short_txt__contains=mysearch, ocatid=catid, date__gte=f_rom)
+                c = News.objects.filter(body_txt__contains=mysearch, ocatid=catid, date__gte=f_rom)
+            elif t_o != "0":
+                a = News.objects.filter(name__contains=mysearch, ocatid=catid,date__lte=t_o)
+                b = News.objects.filter(short_txt__contains=mysearch, ocatid=catid,date__lte=t_o)
+                c = News.objects.filter(body_txt__contains=mysearch, ocatid=catid,date__lte=t_o)
+            else:
+                a = News.objects.filter(name__contains=mysearch, ocatid=catid)
+                b = News.objects.filter(short_txt__contains=mysearch, ocatid=catid)
+                c = News.objects.filter(body_txt__contains=mysearch, ocatid=catid)
 
         allnewss = list(chain(a,b,c))
         allnewss = list(dict.fromkeys(allnewss))
@@ -407,4 +534,61 @@ def all_news_search(request):
     trending = Trending.objects.all().order_by('-pk')[:5]
     lastnews2 = News.objects.filter(act=1).order_by('-pk')[:4]
 
-    return render(request, 'front/all_news_2.html',{'site': site, 'news': news, 'cat': cat, 'subcat': subcat, 'lastnews': lastnews, 'popnews': popnews,'popnews2': popnews2, 'trending': trending, 'lastnews2': lastnews2,'allnewss':allnewss })
+    now = datetime.datetime.now()
+    year = now.year
+    month = now.month
+    day = now.day
+
+    if len(str(day)) == 1:
+        day = "0" + str(day)
+    if len(str(month)) == 1:
+        month = "0" + str(month)
+
+    today = str(year) + "/" + str(month) + "/" + str(day)
+
+    f_rom = []
+    t_o = []
+
+    for i in range(30):
+
+        b = datetime.datetime.now() + datetime.timedelta(days=i)
+
+        year = b.year
+        month = b.month
+        day = b.day
+
+        if len(str(day)) == 1:
+            day = "0" + str(day)
+        if len(str(month)) == 1:
+            month = "0" + str(month)
+
+        b = str(year) + "/" + str(month) + "/" + str(day)
+
+        f_rom.append(b)
+
+    for i in range(30):
+
+        b = datetime.datetime.now() + datetime.timedelta(days=i)
+
+        year = b.year
+        month = b.month
+        day = b.day
+
+        if len(str(day)) == 1:
+            day = "0" + str(day)
+        if len(str(month)) == 1:
+            month = "0" + str(month)
+
+        b = str(year) + "/" + str(month) + "/" + str(day)
+
+        t_o.append(b)
+
+    return render(request, 'front/all_news_2.html',{'site': site, 'news': news, 'cat': cat, 'subcat': subcat, 'lastnews': lastnews, 'popnews': popnews,'popnews2': popnews2, 'trending': trending, 'lastnews2': lastnews2,'allnews':allnews, 'f_rom':f_rom, 't_o':t_o})
+
+
+
+
+b = News.objects.filter(date__gte="2019/01/12")
+b = News.objects.filter(date__lte="2019/01/12")
+
+#News.objects.filter(pk=pk).exclude(pk=10)
