@@ -22,7 +22,7 @@ news, get daily updates, get trending topics and can comment on anything. User c
 create their account can login can perform various actions.
 
 
-![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(205).png)
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(220).png)
 
 
 For company point of view we have created a simple and effective panel to operate the website and control comments and 
