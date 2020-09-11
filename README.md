@@ -31,9 +31,7 @@ groups and permission to employees. For certain users increasing hate/vulgarity 
 and can blacklist that user too. We can view the dashboard where orders, increase in ratings, user registrations and 
 unique visitors can be analysed and seen.
 
-# (III) Libraries used :
-
-# (IV) Website features : 
+# (III) Website features : 
 
 News of a particular category can be viewd as per our interest
 
@@ -86,20 +84,77 @@ This is QR code feature where we can scan and read the news
 
 We have many more functionality you can run the platform and explore it
  
-# (V) Website Panel for company:
+# (IV) Website Panel for company:
 
+This section is panel part for backend/company point of view where we can use various features
+
+We can see data of new orders, bounce rate, user registrations, unique visitors. This is basically the dashboard.
+
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(220).png)
+
+This the settings page to change basic settings and logo
+
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(221).png)
+
+This the message list, i.e, responses from the contact us forms
+
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(222).png)
+
+This is comment list, here we can first analyse comment and if it's appropriate then publish it
+
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(223).png)
+
+This is blacklisted IP's list, we can further add more
+
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(224).png)
+
+This is group table fro working employee's, we can further add more and we can also change their permission's
+
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(225).png)
+
+This is permission page, here we can change and allot permission's to the groups
+
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(226).png)
+
+This is manager list, we can add more and allot him/her to give more permission's to perform changes
+
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(227).png)
+
+This is the news add form, one can add news here via selecting category and sub-category with other requirements
+
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(228).png)
+
+This is news list page where we can see all news and from here we can delete/publish/edit the news
+
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(229).png)
+
+This is list of emails, the person's who have contacted us for daily updates. We can write can send mail's from here, 
+similar page is for phone numbers
+
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(230).png)
+
+This is list of categories, here we can view them, edit them, delete them. We can further add more via .csv files too
+
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(231).png)
+
+We can add sub-category here via selecting category, a similar page is for adding category
+
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(232).png)
+
+Here we can add trending news/topics so person can visit directly to them
+
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(233).png)
+
+We have further more features you can run the website and see
+
+
+# (V) About Technical Stack :
 
 
 # (VI) Conclusions :
 
-We were able to produce results which are consistent with the methodology proposed. Mainy the
-focus was to integrate the machine learning algorithms with our website for the completion of this
-project. This provides a powerful tool in the hands of a layman to observe predicted stocks and
-invest accordingly. A user friendly terminal which shows when to invest and when to divest gives a
-sense of trust to these predicted values. It is important to note that the results produced are likely to
-be the trend in the next 20 days. That explains that in between this time period there might be days
-which are not in resonance with the result but the end result is surely accurate to predict the trend.
-
-
-
-
+We are here capable of providing a free platform to reading/publishing news, freedom of speech is our motto and one can 
+share their views in appropriate manner and language. Persons can discuss and become the part of free news community.
+For companies/owner we have provided a perfect manageable platform and for user an interesting user friendly place to 
+interact. You can download and run it using manage.py file, for any errors google it you can find which 
+dependencies/library you need to install it. ThankYou!
