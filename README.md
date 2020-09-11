@@ -1,10 +1,32 @@
 # News-App-Django
 
-![](https://github.com/ambujalpha/STOCK-MARKET-PREDICTOR/blob/master/Images_for_readme/about.jpg)
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/intro.jpg)
 
 # (I) Introduction : 
 
+Hello welcome to free news, here you can watch news on various topics of multiple domains. You can become a contributor 
+of this platform too and can help us grow to give people fastest and real news. You can watch trending topics with their 
+news and can share your views on any topic and can discuss with any other users. Send you email to us for daily updates.
+You can comment on any topic too, in this latest era of technology you can share QR code of news too and can read it 
+via directly scanning it from anywhere. You can contact us for any queries. 
+
 # (II) Website Overview :
+
+
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(205).png)
+
+The website is divided into two parts, first is user/customer point of view and other is company/backend point of view.
+For users we have created a user-friendly UI and free platform to share their views, discuss on news or any topic, read 
+news, get daily updates, get trending topics and can comment on anything. User can also contribute for news. Users can 
+create their account can login can perform various actions.
+
+![](https://github.com/ambujalpha/News_App_Django/blob/master/images_for_readme/Screenshot%20(205).png)
+
+For company point of view we have created a simple and effective panel to operate the website and control comments and 
+news contributed by users. Company can give permission to access certain limits to users and employees. We can assign 
+groups and permission to employees. For certain users increasing hate/vulgarity on platform we can trace it's IP address
+and can blacklist that user too. We can view the dashboard where orders, increase in ratings, user registrations and 
+unique visitors can be analysed and seen.
 
 # (III) Libraries used :
 
