@@ -56,4 +56,4 @@ typing==3.7.4.1
 urllib3==1.25.8
 webencodings==0.5.1
 wrapt==1.12.1
-zipp==3.1.0
+zipp==3.19.1
