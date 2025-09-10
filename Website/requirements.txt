@@ -44,7 +44,7 @@ pywin32-ctypes==0.2.0
 qrcode==6.1
 ratelim==0.1.6
 readme-renderer==25.0
-requests==2.31.0
+requests==2.32.4
 requests-toolbelt==0.9.1
 selenium==3.141.0
 six==1.14.0
